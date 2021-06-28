@@ -1,17 +1,14 @@
+
 server {
-    listen ${LISTEN_PORTS};
+    listen ${LISTEN_PORT};
 
     location /static {
         alias /vol/static;
     }
 
     location / {
-        alias /vol/static;
-    }
-
-    location / {
-        uwsgi_pass $(APP_HOST):$(APP_PORTS);
-        include /etc/nginx/uwsgi_params;
-        client_max_body_size 10M;
+        uwsgi_pass              ${APP_HOST}:${APP_PORT};
+        include                 /etc/nginx/uwsgi_params;
+        client_max_body_size    10M;
     }
 }
